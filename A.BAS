@@ -2,9 +2,11 @@ DECLARE SUB DRAWABS (vx1!, vx2!, vy1!, vy2!, px!, py!, angle!)
 DECLARE SUB DRAWTRANS (vx1!, vx2!, vy1!, vy2!, px!, py!, angle!)
 SCREEN 7
 
+'Wall Position
 vx1 = 70: vy1 = 20
 vx2 = 70: vy2 = 79
 
+'Player Position
 px = 50
 py = 50
 angle = 0
@@ -12,10 +14,10 @@ angle = 0
 
 DO
  ' Draw absolute map
-DRAWABS(vx1,vx2,vy1,vy2,px,py,angle)
+  CALL DRAWABS(vx1,vx2,vy1,vy2,px,py,angle)
 
  ' Draw transformed Map
-
+  CALL DRAWTRANS(vx1,vx2,vy1,vy2,px,py,angle)
 
   SCREEN , , page%, 1 - page%: page% = 1 - page%
   WAIT &H3DA, &H8, &H8: WAIT &H3DA, &H8
@@ -48,13 +50,23 @@ END SUB
 SUB DRAWTRANS (vx1, vx2, vy1, vy2, px, py, angle)
  
   VIEW (109, 40)-(208, 140), 0, 2
-  'Transform vertices
-  tx1 = vx1 - px : ty1 = vy1-py
-  tz1 = tx1 * COS(ANGLE)
+  
+  'p is fixed, calculate vertices
+  tx1 = vx1 - px: ty1 = vy1-py
+  tx2 = vx2 - px: ty2 = vy2 - py
 
-  LINE (vx1, vy1)-(vx2, vy2), 14
+  'calculate L
+  tz1 = tx1 * COS(angle) + ty1 *SIN(angle)
+  tz2 = tx2 * COS(angle) + ty2 * SIN(angle)
 
-  LINE (px, py)-(COS(angle) * 5 + px, SIN(angle) * 5 + py), 8
+  ' END Pos
+  tx1 = tx1 * SIN(angle) - ty1 *COS(angle)
+  tx2 = tx2 * SIN(angle) - ty2*COS(angle)
+
+  ' 50 is middle, Start Pos, End Pos
+  LINE (50-tx1,50-tz1) - (50-tx2,50-tz2), 14
+
+  LINE (50,50)-(50,45),8
   PSET (px, py), 15
 
 END SUB

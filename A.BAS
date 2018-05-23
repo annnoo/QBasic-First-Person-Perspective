@@ -42,7 +42,7 @@ LOOP
 
 SCREEN 0, 1, 0, 0: WIDTH 80, 25
 
-DEF FNVECCROSS (x1, y1, x2, y2) = x1 * y2 - y1 * x2
+DEF FNVECCROSS (x1, y1, x2, y2) = (x1 * y2) - (y1 * x2)
 
 SUB DRAWABS (vx1, vx2, vy1, vy2, px, py, angle)
   VIEW (4, 40)-(103, 140), 0, 1
@@ -101,10 +101,11 @@ SUB FPS (vx1, vx2, vy1, vy2, px, py, angle)
     x1 = -tx1 * 16 / tz1: y1a = -50 / tz1: y1b = 50 / tz1
     x2 = -tx2 * 16 / tz2: y2a = -50 / tz2: y2b = 50 / tz2
 
-    LINE (50 + x1, 50 + y1a)-(50 + x2, 50 + y2a), 14
-    LINE (50 + x1, 50 + y1b)-(50 + x2, 50 + y2b), 14
-    LINE (50 + x1, 50 + y1a)-(50 + x1, 50 + y1b), 6
-    LINE (50 + x2, 50 + y2a)-(50 + x2, 50 + y2b), 6
+    LINE (50 + x1, 50 + y1a)-(50 + x2, 50 + y2a), 10
+    LINE (50 + x1, 50 + y1b)-(50 + x2, 50 + y2b), 10
+    LINE (50 + x1, 50 + y1a)-(50 + x1, 50 + y1b), 3
+    LINE (50 + x2, 50 + y2a)-(50 + x2, 50 + y2b), 3
+               
   END IF
 END SUB
 
@@ -114,7 +115,7 @@ SUB INTERSECT (x1, y1, x2, y2, x3, y3, x4, y4, x, y)
 
   det = FNVECCROSS(x1 - x2, y1 - y2, x3 - x4, y3 - y4)
   x = FNVECCROSS(x, x1 - x2, y, x3 - x4) / det
-  y = FNVECCROSS(x, y1 - y2, y, y3 - y4)
+  y = FNVECCROSS(y, y1 - y2, y, y3 - y4)
 
 END SUB
 

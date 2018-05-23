@@ -100,7 +100,7 @@ SUB FPS (vx1, vx2, vy1, vy2, px, py, angle)
     
     x1 = -tx1 * 16 / tz1: y1a = -50 / tz1: y1b = 50 / tz1
     x2 = -tx2 * 16 / tz2: y2a = -50 / tz2: y2b = 50 / tz2
-
+                                                                  
     LINE (50 + x1, 50 + y1a)-(50 + x2, 50 + y2a), 10
     LINE (50 + x1, 50 + y1b)-(50 + x2, 50 + y2b), 10
     LINE (50 + x1, 50 + y1a)-(50 + x1, 50 + y1b), 3
